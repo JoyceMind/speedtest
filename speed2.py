@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QHBoxLayout, QVBoxLayout, QPushButton
 from PyQt5.QtCore import QTimer
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QPalette, QBrush, QPixmap
 import speed4
 
 class NetworkSpeedMonitor(QWidget):
@@ -31,15 +32,15 @@ class NetworkSpeedMonitor(QWidget):
         self.timer.start(1000)  # 每秒更新一次网络速度
 
         # 创建按钮
-        self.button = QPushButton('开始监控', self)
-        self.button.clicked.connect(self.start_monitoring)
+        # self.button = QPushButton('开始监控', self)
+        # self.button.clicked.connect(self.start_monitoring)
 
         # 创建垂直布局
-        layout = QVBoxLayout()
-        layout.addWidget(self.button)
+        # layout = QVBoxLayout()
+        # layout.addWidget(self.button)
 
         # 设置布局
-        self.setLayout(layout)
+        # self.setLayout(layout)
 
     def update_network_speed(self):
         # 这里可以编写获取网络速度的代码，例如使用 psutil 库获取上传和下载速度
@@ -59,6 +60,8 @@ if __name__ == '__main__':
     #修改窗口图标
     icon=QtGui.QIcon()
     icon.addPixmap(QtGui.QPixmap('./resources/speed.ico'),QtGui.QIcon.Normal,QtGui.QIcon.Off)
+    win.setStyleSheet("#MainWindow{border-image:url(resources/background.png)}")
+    win.resize(360,240)
     win.setWindowIcon(icon)
     win.show()
     sys.exit(app.exec_())

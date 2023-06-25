@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QWidget, QFrame, QLabel, QVBoxLayout, QGridLayout
 from PyQt5.QtCore import Qt, pyqtSignal, QThread
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPalette, QBrush, QPixmap
 import speed4
 
 
@@ -32,11 +33,14 @@ class NetWindows(QMainWindow):
         self.upload_text.setText('上传速度: ')
         self.download_text = QLabel()
         self.download_text.setText('下载速度: ')
-        # self.download_text = QLabel()
-        # self.download_text.setText(time.strftime("%Y-%m-%d--%H:%M:%S", time.localtime()))
-
+        # 显示时间
+        self.bjtime = QLabel()
+        self.bjtime.setText(time.strftime("%Y-%m-%d--%H:%M:%S", time.localtime()))
+        print(time.strftime("%Y-%m-%d--%H:%M:%S", time.localtime()))
         self.upload_lab = QLabel()
         self.download_lab = QLabel()
+
+
 
         self.g_layout = QGridLayout()
         self.g_layout.addWidget(self.upload_icon, 0, 0, 1, 1)
@@ -45,6 +49,7 @@ class NetWindows(QMainWindow):
         self.g_layout.addWidget(self.download_text, 1, 1, 1, 1)
         self.g_layout.addWidget(self.upload_lab, 0, 2, 1, 4)
         self.g_layout.addWidget(self.download_lab, 1, 2, 1, 4)
+        self.g_layout.addWidget(self.bjtime,2,0,3,8)
         self.widget = QWidget()
         self.widget.setLayout(self.g_layout)
         self.setCentralWidget(self.widget)
@@ -85,8 +90,8 @@ class NetThread(QThread):
         super(NetThread, self).__init__()
 
     def net_func(self):
-        self.upload_content = speed4.get_net_io(str('以太网'),Step_Time=1.0)[1][5:]
-        self.download_content = speed4.get_net_io(str('以太网'), Step_Time=1.0)[0][5:]
+        self.upload_content = speed4.get_net_io(str('WLAN'),Step_Time=1.0)[1][5:]
+        self.download_content = speed4.get_net_io(str('WLAN'), Step_Time=1.0)[0][5:]
 
     def run(self):
         while (1):
@@ -98,20 +103,20 @@ class NetThread(QThread):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    dispaly = NetWindows()
+    win = NetWindows()
     #修改窗口图标
     icon=QtGui.QIcon()
     icon.addPixmap(QtGui.QPixmap('./resources/speed3.ico'),QtGui.QIcon.Normal,QtGui.QIcon.Off)
-    dispaly.setWindowIcon(icon)
-    #设置窗口的背景，自适应窗口大小
-    palette=QtGui.QPalette()
-    palette.setBrush(dispaly.backgroundRole().QBrush(QPixmap('resources/1.jpg').scaled(dispaly.size().QtCore.Qt.IgnoreAspectRatio,QtCore.Qt.SmoothTansformation)))
-    dispaly.setPalette(palette)
-    # dispaly.setStyleSheet("#display{border-image:url(resources/1.jpg)}")  # 设置背景图片
-    # 设置窗口样式
-    dispaly.setWindowFlags(Qt.Window)
+    win.setWindowIcon(icon)
+#修改窗口背景
+    palette = QPalette()
+    palette.setBrush(QPalette.Background, QBrush(QPixmap("resources/background.png")))
+    win.setStyleSheet("QMainWindow {background-image: url('resources/background.png');}")
 
-    dispaly.show()
+    # 设置窗口样式
+    win.setWindowFlags(Qt.Window)
+
+    win.show()
     netwidows = NetWindows()
     sys.exit(app.exec_())
 

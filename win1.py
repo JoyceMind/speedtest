@@ -55,7 +55,7 @@ if __name__=='__main__':
     icon.addPixmap(QtGui.QPixmap('./resources/speed.ico'),QtGui.QIcon.Normal,QtGui.QIcon.Off)
     MainWindow.setWindowIcon(icon)
     #设置窗口的背景
-    MainWindow.setStyleSheet("#MainWindow{border-image:url(resources/1.jpg)}")  # 设置背景图片
+    MainWindow.setStyleSheet("#MainWindow{border-image:url(resources/background.jpg)}")  # 设置背景图片
     # 设置窗口样式
     MainWindow.setWindowFlags(Qt.Window)
 

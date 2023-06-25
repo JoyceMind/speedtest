@@ -16,4 +16,4 @@ if __name__ == '__main__':
     while 1:
         print(speed4.get_net_io(a[0], Step_Time=1.0)[0][5:])
         print(speed4.get_net_io(a[0],Step_Time=1.0)[1][5:])
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+

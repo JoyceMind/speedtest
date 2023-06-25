@@ -22,11 +22,11 @@ def get_net_io(Networked_Line, Step_Time=1.0):
     after_rec = psutil.net_io_counters(pernic=True)[Networked_Line].bytes_recv #t+Step_Time之后接受到的字节数
     after_sent = psutil.net_io_counters(pernic=True)[Networked_Line].bytes_sent #t+Step_Time之后发送的字节数
 
-    speed_rec = (after_rec - before_rec) / 1024/1024  # 下载速度 KB/s
+    speed_rec = (after_rec - before_rec) / 1024/1024  # 下载速度 MB/s
     speed_sent = (after_sent - before_sent) / 1024  # 上传速度KB/s
 
     return "下载速度：%.2f M/s" % speed_rec,"上传速度：%.2f K/s" % speed_sent
-
+# 网速数据写入以日志的形式写入文件
 # log_path = os.getcwd() + '/monitor_network_log.txt'
 # with open(log_path, 'w+', encoding='utf8') as f:
 #     while 1:
